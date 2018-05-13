@@ -1,0 +1,93 @@
+{% extends 'search/base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+<body style="margin: 8px 0 0 0">
+  <div id="app">
+  <el-container style="height: 100%;">
+    <el-header>
+      <div style="float: right">
+        <el-button type="primary" size="small">登陆</el-button>
+      </div>
+    </el-header>
+  <el-main>
+      <div class="vertical-container">
+        <img class="logo_img" src="{% static 'search/img/logo.jpg' %}">
+      </div>
+      <div class="vertical-container">
+        <div style="width: 40%">
+          <el-autocomplete
+            v-model="search_content"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入内容"
+            :trigger-on-focus="false"
+            @select="handleSelect"
+            clearable
+            class="search_input"
+          ></el-autocomplete>
+          <div class="vertical-container">
+            <el-button type="info" plain @click="handleSearchButton">水务搜索</el-button>
+            <el-button type="info" plain @click="handleRandomButton">手气不错</el-button>
+          </div>
+        </div>
+      </div>
+    </el-main>
+    <el-footer style="background: #EBEEF5" height="40px">
+      <div class="footer">
+        <span style="float: left;">
+          <a>占位</a>
+          <a>占位</a>
+          <a>占位</a>
+        </span>
+        <span style="float: right;">
+          <a>占位</a>
+          <a>占位</a>
+          <a>占位</a>
+        </span>
+      </div>
+    </el-footer>
+  </el-container>
+  </div>
+  <script>
+      var app = new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            search_content: '',
+          }
+        },
+        methods: {
+          querySearch(queryString, cb) {
+            axios.get('/api/search_helper?sc=' + queryString)
+            .then(
+              response => {
+                cb(response.data);
+              }
+            ).catch(
+              error => {
+                console.log(error)
+              }
+            )
+          },
+          createFilter(queryString) {
+            return (restaurant) => {
+              return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+            };
+          },
+          handleSelect(item) {
+            console.log(item.value);
+          },
+          handleRandomButton() {
+            window.location.href = '/search'
+          },
+          handleSearchButton() {
+            window.location.href = '/search?sc=' + this. search_content
+          }
+        },
+        mounted() {
+
+        }
+      })
+  </script>
+</body>
+{% endblock main %}

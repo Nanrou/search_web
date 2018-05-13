@@ -1,0 +1,80 @@
+{% extends 'search/base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+<body style="margin: 0">
+  <div id="app">
+  <el-container style="height: 100%;">
+    <el-header style="padding: 0; height: auto;" >
+      <div class="top">
+        <div class="result_logo_img">
+          <img class="result_logo_img" src="{% static 'search/img/logo.jpg' %}">
+        </div>
+        <div style="width: 40%">
+          <el-autocomplete
+            v-model="search_content"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入内容"
+            :trigger-on-focus="false"
+            @select="handleSelect"
+            clearable
+            class="search_input"
+            suffix-icon="el-icon-search"
+          ></el-autocomplete>
+        </div>
+        <div style="float: right">
+          <el-button type="primary" size="small">登陆</el-button>
+        </div>
+      </div>
+    </el-header>
+    <el-main>
+
+    </el-main>
+    <el-footer>
+
+    </el-footer>
+  </el-container>
+  </div>  
+  <script>
+      var app = new Vue({
+        el: '#app',
+        data: function () {
+          return {
+            search_content: '',
+          }
+        },
+        methods: {
+          querySearch(queryString, cb) {
+            axios.get('/api/search_helper?sc=' + queryString)
+            .then(
+              response => {
+                cb(response.data);
+              }
+            ).catch(
+              error => {
+                console.log(error)
+              }
+            )
+          },
+          createFilter(queryString) {
+            return (restaurant) => {
+              return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+            };
+          },
+          handleSelect(item) {
+            console.log(item.value);
+          },
+          handleRandomButton() {
+            window.location.href = '/search'
+          },
+          handleSearchButton() {
+            window.location.href = '/search?sc=' + this. search_content
+          }
+        },
+        mounted() {
+
+        }
+      })
+  </script>
+</body>
+{% endblock main %}
