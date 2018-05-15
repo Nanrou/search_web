@@ -22,16 +22,44 @@
             suffix-icon="el-icon-search"
           ></el-autocomplete>
         </div>
-        <div style="float: right">
+        <div class="login_button">
           <el-button type="primary" size="small">登陆</el-button>
         </div>
       </div>
     </el-header>
     <el-main>
-
+      <div class="result_content">
+        <ol class="result_ol">
+          {% for s in sc %}
+          <li class="result_li">
+            <h2>{{ s.title }}</h2>
+            <div>
+              <div>
+                <cite>{{ s.url }}</cite>
+              </div>
+              <p>{{ s.content }}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+        <div class="pagination">
+          {{ raw_paginator }}
+        </div>
+      </div>
     </el-main>
-    <el-footer>
-
+    <el-footer style="background: #EBEEF5" height="40px">
+      <div class="footer">
+        <span style="float: left;">
+          <a>占位</a>
+          <a>占位</a>
+          <a>占位</a>
+        </span>
+        <span style="float: right;">
+          <a>占位</a>
+          <a>占位</a>
+          <a>占位</a>
+        </span>
+      </div>
     </el-footer>
   </el-container>
   </div>  

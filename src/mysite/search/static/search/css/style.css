@@ -38,7 +38,7 @@
 .top {
   padding-top: 20px;
   padding-bottom: 12px;
-  background: rgba(212, 212, 212, 0.4);
+  background: rgba(242, 242, 242, 0.9);
 }
 
 .top div {
@@ -53,4 +53,25 @@
 .result_logo_img img{
   width: 160px;
   height: 80px;
+}
+
+.login_button {
+  float: right;
+  padding: 12px;
+  padding-right: 36px;
+}
+
+.result_content {
+  padding-left: 48px;
+}
+
+.result_ol {
+  width: 35%;
+  list-style: none;
+}
+
+.result_li cite, p{
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-wrap: break-word;
 }
