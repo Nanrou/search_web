@@ -97,7 +97,17 @@
           },
           handleSearchButton() {
             window.location.href = '/search?sc=' + this. search_content
-          }
+          },
+          handlePageCurrent(num) {
+            console.log(num)
+            let href = window.location.href
+            if (href.indexOf('page') !== -1) {
+              href = href.replace(/page=\d+/, 'page='+num)
+            } else {
+              href = href + '&page=' + num
+            }
+            window.location.href = href
+          },
         },
         mounted() {
 

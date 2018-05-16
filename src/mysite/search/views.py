@@ -22,7 +22,7 @@ class HomeView(TemplateView):
 class SearchView(ListView):
     template_name = 'search/result.html'
     context_object_name = 'sc'
-    paginate_by = 5
+    paginate_by = 8
 
     def get_queryset(self):
         return fake_es(self.request.GET['sc'])
@@ -34,9 +34,12 @@ class SearchView(ListView):
         layout="prev, pager, next"
         :page-size="{}"
         :current-page="{}"
-        :total="{}">
+        :total="{}"
+        @current-change="handlePageCurrent"
+        >
+        
         </el-pagination>
-         """.format(8, content['page_obj'].number, content['paginator'].num_pages))
+         """.format(8, content['page_obj'].number, content['paginator'].count))
         # es.search(index='test2', q=sc)
         return content
 
